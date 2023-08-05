@@ -38,24 +38,24 @@ class TableBasicSamples():
     # Runs all samples for Azure Storage Table service.
     def run_all_samples(self, account):
         print('Azure Storage Basic Table samples - Starting.')
-        table_name = 'tablebasics' + self.random_data.get_random_name(6)
+        table_name = f'tablebasics{self.random_data.get_random_name(6)}'
         table_service = None
         try:
             table_service = account.create_table_service()
 
             # Create a new table
-            print('Create a table with name - ' + table_name)
+            print(f'Create a table with name - {table_name}')
 
             try:
                 table_service.create_table(table_name)
             except Exception as err:
-                print('Error creating table, ' + table_name + 'check if it already exists')
- 
+                print(f'Error creating table, {table_name}check if it already exists')
+
             # Create a sample entity to insert into the table
             customer = {'PartitionKey': 'Harp', 'RowKey': '1', 'email' : 'harp@contoso.com', 'phone' : '555-555-5555'}
 
             # Insert the entity into the table
-            print('Inserting a new entity into table - ' + table_name)
+            print(f'Inserting a new entity into table - {table_name}')
             table_service.insert_entity(table_name, customer)
             print('Successfully inserted the new entity')
 

@@ -37,12 +37,12 @@ else:
     account_key = config.get('AccountKey')
     # Basic URL Configuration
     endpoint_suffix = config.get('EndpointSuffix')
-    if endpoint_suffix == None:
-       table_endpoint  = config.get('TableEndpoint')
-       table_prefix = '.table.'
-       start_index = table_endpoint.find(table_prefix)
-       end_index = table_endpoint.endswith(':') and len(table_endpoint) or table_endpoint.rfind(':')
-       endpoint_suffix = table_endpoint[start_index+len(table_prefix):end_index]
+    if endpoint_suffix is None:
+        table_endpoint  = config.get('TableEndpoint')
+        table_prefix = '.table.'
+        start_index = table_endpoint.find(table_prefix)
+        end_index = table_endpoint.endswith(':') and len(table_endpoint) or table_endpoint.rfind(':')
+        endpoint_suffix = table_endpoint[start_index+len(table_prefix):end_index]
     account = TableStorageAccount(account_name = account_name, connection_string = account_connection_string, endpoint_suffix=endpoint_suffix)
 #Basic Table samples
 print ('---------------------------------------------------------------')

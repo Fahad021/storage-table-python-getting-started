@@ -5,7 +5,7 @@ from random import randint
 class RandomData:
     # Gets random characters to use for generating unique name.
     def get_random_name(self, length):
-        return ''.join(random.choice(string.ascii_lowercase) for i in range(length))
+        return ''.join(random.choice(string.ascii_lowercase) for _ in range(length))
 
     # Gets Random Bytes of specified size for use in samples.
     # Input Arguments:

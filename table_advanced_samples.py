@@ -67,15 +67,15 @@ class TableAdvancedSamples():
 
     # Manage tables including creating, listing and deleting
     def list_tables(self, table_service):
-        table_prefix = 'table' + self.random_data.get_random_name(6)
+        table_prefix = f'table{self.random_data.get_random_name(6)}'
 
-        try:        
+        try:    
             # Create tables
             for i in range(5):
                 table_name = table_prefix + str(i)
-                print('1. Create a table with name - ' + table_name)
+                print(f'1. Create a table with name - {table_name}')
                 table_service.create_table(table_name)
-            
+
             # List all the tables 
             print('2. List tables')
             tables = table_service.list_tables()
@@ -89,7 +89,7 @@ class TableAdvancedSamples():
                 table_name = table_prefix + str(i)
                 if(table_service.exists(table_name)):
                     table_service.delete_table(table_name)
-            
+
         print("List tables sample completed")
     
     # Manage properties of the Table service, including logging and metrics settings, and the default service version.
@@ -137,12 +137,12 @@ class TableAdvancedSamples():
 
     # Manage table access policy
     def table_acl_operations(self, table_service):
-        table_name = 'acltable' + self.random_data.get_random_name(6)
+        table_name = f'acltable{self.random_data.get_random_name(6)}'
 
-        try:        
-            print('1. Create a table with name - ' + table_name)
+        try:    
+            print(f'1. Create a table with name - {table_name}')
             table_service.create_table(table_name)
-                
+
             print('2. Set access policy for table')
             access_policy = AccessPolicy(permission=TablePermissions.QUERY,
                                         expiry=datetime.datetime.utcnow() + datetime.timedelta(hours=1))
@@ -162,23 +162,23 @@ class TableAdvancedSamples():
             print('5. Delete table')
             if(table_service.exists(table_name)):
                 table_service.delete_table(table_name)
-            
+
         print("Table ACL operations sample completed")
     
     # Manage shared access signature on a table
     def table_operations_with_sas(self, account):
-        table_name = 'sastable' + self.random_data.get_random_name(6)
-        
+        table_name = f'sastable{self.random_data.get_random_name(6)}'
+
         try:
             # Create a Table Service object
             table_service = account.create_table_service()
-            
-            print('1. Create table with name - ' + table_name)
+
+            print(f'1. Create table with name - {table_name}')
             table_service.create_table(table_name)
-            
+
             # Create a Shared Access Signature for the table
             print('2. Get sas for table')
-            
+
             table_sas = table_service.generate_table_shared_access_signature(
                 table_name, 
                 TablePermissions.QUERY + TablePermissions.ADD + TablePermissions.UPDATE + TablePermissions.DELETE, 
@@ -191,13 +191,13 @@ class TableAdvancedSamples():
             customer = {'PartitionKey': 'Harp', 'RowKey': '1', 'email' : 'harp@contoso.com', 'phone' : '555-555-5555'}
 
             # Insert the entity into the table
-            print('3. Insert new entity into table with sas - ' + table_name)
+            print(f'3. Insert new entity into table with sas - {table_name}')
             shared_table_service.insert_entity(table_name, customer)
-            
+
             # Demonstrate how to query the entity
             print('4. Read the inserted entity with sas.')
             entity = shared_table_service.get_entity(table_name, 'Harp', '1')
-            
+
             print(entity['email'])
             print(entity['phone'])
 
@@ -214,5 +214,5 @@ class TableAdvancedSamples():
             print('7. Delete table')
             if(table_service.exists(table_name)):
                 table_service.delete_table(table_name)
-            
+
         print("Table operations with sas completed")
